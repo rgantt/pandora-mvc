@@ -7,6 +7,7 @@ use Pandora\HTTP;
 
 // load controllers on demand
 spl_autoload_register( function ($class) {
+    echo sprintf("Trying to autoload %s (controllers)<br/>", $class);
     $class = strtolower($class);
     if( strstr($class, 'controller') !== false ) {
         $class = str_replace('controller', '', $class);
@@ -16,6 +17,16 @@ spl_autoload_register( function ($class) {
         } else {
             throw new \Exception("Could not load {$class} controller!");
         }
+    }
+});
+
+spl_autoload_register( function ($class) {
+    echo sprintf("Trying to autoload %s (models)<br/>", $class);
+    $class = strtolower($class);
+    $class = str_replace('facade', '', $class);
+    $filename = "models/{$class}.php";
+    if( file_exists( $filename ) ) {
+        require_once $filename;
     }
 });
 
@@ -31,8 +42,8 @@ class PageDispatcher {
     public function render() {
         $request = new Request();
         
-        $controller = "\\".ucfirst($this->controller)."Controller";
-        $model = "\\".ucfirst($this->controller)."Facade";
+        $controller = ucfirst($this->controller)."Controller";
+        $model = ucfirst($this->controller)."Facade";
         # this isn't how i want to do it
         $pc = new $controller( $request, new $model() );
         
