@@ -1,0 +1,16 @@
+{
+    "name": "zutto/pandora-mvc",
+    "type": "framework",
+    "description": "Lightweight MVC",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ryan Gantt",
+            "email": "ryanpgantt@gmail.com",
+            "homepage": "http://ryangantt.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
