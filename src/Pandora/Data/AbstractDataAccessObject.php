@@ -1,8 +1,8 @@
 <?php
-namespace Pandora;
+namespace Pandora\Data;
 
-use Pandora\Environment;
-use Pandora\EnvironmentFactory;
+use Pandora\Environment\Environment;
+use Pandora\Environment\EnvironmentFactory;
 
 use \PDO;
 

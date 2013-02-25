@@ -1,5 +1,5 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
 
 interface Renderable {
     public function render();

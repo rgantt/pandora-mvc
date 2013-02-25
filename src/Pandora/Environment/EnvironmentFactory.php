@@ -1,7 +1,7 @@
 <?php
-namespace Pandora;
+namespace Pandora\Environment;
 
-use Pandora\JSON;
+use Pandora\Util\JSON;
 
 class EnvironmentFactory {
     const ENV_TYPE = 'ENV_TYPE';

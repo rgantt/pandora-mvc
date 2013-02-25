@@ -1,5 +1,7 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
+
+use Pandora\Data\HTTP;
 
 class AuthenticatedRenderableDecorator extends RenderableDecorator {
     public function __construct( Renderable $renderable ) {

@@ -1,5 +1,5 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
 
 class RenderableDecorator implements Renderable {
     protected $renderable = null;

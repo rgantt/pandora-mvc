@@ -1,5 +1,5 @@
 <?php
-namespace Pandora;
+namespace Pandora\Data;
 
 class HTTPException extends \Exception {}
 class BadRequestException extends HTTPException {}

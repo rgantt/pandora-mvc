@@ -1,5 +1,5 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
 
 class PageDispatcher implements Renderable {
     private $controller;

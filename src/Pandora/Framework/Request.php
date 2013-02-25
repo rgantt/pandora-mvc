@@ -1,7 +1,7 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
 
-use Pandora\HTTP;
+use Pandora\Data\HTTP;
 
 class Request {
     public function get($name, $error_msg) {

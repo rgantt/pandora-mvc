@@ -1,8 +1,8 @@
 <?php
-namespace Pandora;
+namespace Pandora\Framework;
 
-use Pandora\PageDispatcher;
-use Pandora\HTTP;
+use Pandora\Framework\PageDispatcher;
+use Pandora\Data\HTTP;
 
 class FrontController {
     public static function render( $default_page, $default_action ) {

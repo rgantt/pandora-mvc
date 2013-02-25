@@ -1,5 +1,5 @@
 <?php
-namespace Pandora;
+namespace Pandora\Util;
 
 use \Exception;
 

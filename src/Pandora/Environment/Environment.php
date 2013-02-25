@@ -1,7 +1,7 @@
 <?php
-namespace Pandora;
+namespace Pandora\Environment;
 
-use Pandora\PDODatabaseData;
+use Pandora\Data\PDODatabaseData;
 
 class Environment {
     protected $dbdata;
