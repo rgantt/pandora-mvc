@@ -10,22 +10,26 @@ The result: Pandora, a small package that simplifies creation of dynamic web pag
 
 Take a composer dependency on pandora-mvc:
 
-    {
-        "require": {
-            "zutto/pandora-mvc": "dev-master"
-        }
+```javascript
+{
+    "require": {
+        "zutto/pandora-mvc": "dev-master"
     }
+}
+```
 
 ### Configure
   
 Provide Pandora with the runtime configuration it needs in your index.php:
 
-    PageDispatcher::registerLoader( $your_autoloader_for_controllers );
-    PageDispatcher::registerLoader( $your_autoloader_for_models );
+```php
+PageDispatcher::registerLoader( $your_autoloader_for_controllers );
+PageDispatcher::registerLoader( $your_autoloader_for_models );
 
-    EnvironmentFactory::setConfigFile(dirname(__FILE__)."/conf/environment.json");
+EnvironmentFactory::setConfigFile(dirname(__FILE__)."/conf/environment.json");
 
-    FrontController::render(DEFAULT_PAGE, DEFAULT_ACTION);
+FrontController::render(DEFAULT_PAGE, DEFAULT_ACTION);
+```
   
 The 3 parts:
 
@@ -49,21 +53,23 @@ When a page is requested, the lifecycle looks like this:
 
 Here's an example of a controller for an operation that gives a formatted date:
 
-    class TimeController {
-        protected $request;
-    
-        public function __construct( Request $request ) {
-            $this->request = $request;
-        }
-    
-        public function format() {
-            $fmt = $this->request->get('format', 'You must specify a date format');
-        
-            return array (
-                'timestamp' => date($fmt)
-            );
-        }
+```php
+class TimeController {
+    protected $request;
+
+    public function __construct( Request $request ) {
+        $this->request = $request;
     }
+
+    public function format() {
+        $fmt = $this->request->get('format', 'You must specify a date format');
+    
+        return array (
+            'timestamp' => date($fmt)
+        );
+    }
+}
+```
     
 If you've set up a configuration like the one in the section above, TimeController::format() will be called whenever someone sends a request to:
 
