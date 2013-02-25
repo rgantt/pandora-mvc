@@ -4,13 +4,13 @@ namespace Pandora;
 use Pandora\JSON;
 
 class EnvironmentFactory {
-    const ENV_FILE = 'conf/environment.json';
     const ENV_TYPE = 'ENV_TYPE';
     const ENV_PROD = 'PROD';
     const ENV_BETA = 'BETA';
     const PROD_TYPE = 'production';
     
     private static $environment = null;
+    private static $config_file_path = null;
     
     public static function currentEnvironment() {
         if ( self::$environment === null ) {
@@ -19,8 +19,19 @@ class EnvironmentFactory {
         return self::$environment;
     }
     
+    public static function setConfigFile( $path ) {
+        self::$config_file_path = $path;
+    }
+    
+    private static function getConfigFile() {
+        if( self::$config_file_path == null ) {
+            throw new \Exception("You must provide a path to your configuration");
+        }
+        return self::$config_file_path;
+    }
+    
     private static function createEnvironment() {
-        $raw_config = JSON::decode_file(self::ENV_FILE, true);
+        $raw_config = JSON::decode_file(self::getConfigFile(), true);
         
         $type = getenv(self::ENV_TYPE);
         switch ( $type ) {
@@ -30,7 +41,6 @@ class EnvironmentFactory {
             default:
                 $env_type = self::ENV_BETA;
         }
-        
         return new Environment(self::filterConfig( $env_type, $raw_config ));
     }
     

@@ -1,6 +1,8 @@
 <?php
 namespace Pandora;
 
+use \Exception;
+
 class JSON {
     public static function decode_file( $filename, $assoc = false ) {
 	    if ( !file_exists( $filename ) ) {
