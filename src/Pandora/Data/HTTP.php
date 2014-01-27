@@ -38,9 +38,9 @@ class HTTP {
 
     public static function checkBasicAuthentication() {
         if (!isset($_SERVER['PHP_AUTH_USER'])) {
-            header('WWW-Authenticate: Basic realm="ryangantt.com"');
+            header('WWW-Authenticate: Basic realm="'.gethostname().'"');
             header('HTTP/1.0 401 Unauthorized');
-            echo 'You must authenticate to add a recipe';
+            echo 'You must authenticate to access this view';
             exit();
         }
     }

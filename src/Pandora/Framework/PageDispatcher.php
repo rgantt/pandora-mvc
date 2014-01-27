@@ -1,6 +1,8 @@
 <?php
 namespace Pandora\Framework;
 
+use \Exception;
+
 class PageDispatcher implements Renderable {
     private $controller;
     private $action;
@@ -22,7 +24,9 @@ class PageDispatcher implements Renderable {
         # this isn't how i want to do it
         $pc = new $controller( $request, new $model() );
         
+        $pc->before();
         $env = $pc->{$this->action}();
+        $pc->after();
         return require_once $this->get_view();
     }
         
