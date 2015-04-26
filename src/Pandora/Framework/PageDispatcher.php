@@ -6,7 +6,7 @@ use \Exception;
 class PageDispatcher implements Renderable {
     private $controller;
     private $action;
-    
+
     public static function registerLoader( callable $loader ) {
         spl_autoload_register( $loader );
     }
@@ -15,27 +15,42 @@ class PageDispatcher implements Renderable {
         $this->controller = $controller;
         $this->action = $action;
     }
-    
+
     public function render() {
         $request = new Request();
-        
+
         $controller = ucfirst($this->controller)."Controller";
         $model = ucfirst($this->controller)."Facade";
         # this isn't how i want to do it
         $pc = new $controller( $request, new $model() );
-        
-        $pc->before();
-        $env = $pc->{$this->action}();
-        $pc->after();
+
+        // This will be exposed to views as "$env"
+        $env = array();
+
+        // Allow the before methods to return env vars
+        $before = $pc->before();
+        if (is_array($before)) {
+            $env = $env + $before;
+        }
+
+        // Allow the controller methods to append env
+        $env = $env + $pc->{$this->action}();
+
+        // Allow the after methods to append end
+        $after = $pc->after();
+        if (is_array($after)) {
+            $env = $env + $after;
+        }
+
         return require_once $this->get_view();
     }
-        
+
     public function get_view() {
         $content_type = isset( $_SERVER['HTTP_ACCEPT'] ) ? $_SERVER['HTTP_ACCEPT'] : null;
         $response_type = null;
         $accept_types = explode(';', $content_type);
         $accept_types = explode(',', $accept_types[0]);
-        
+
         // default response type
         $response_type = 'html';
         foreach( $accept_types as $type ) {
@@ -44,7 +59,7 @@ class PageDispatcher implements Renderable {
                 break;
             }
         }
-        
+
         return "views/{$this->controller}/{$this->action}.{$response_type}.php";
     }
 }
