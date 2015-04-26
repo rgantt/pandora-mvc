@@ -34,7 +34,10 @@ class PageDispatcher implements Renderable {
         }
 
         // Allow the controller methods to append env
-        $env = $env + $pc->{$this->action}();
+        $view = $pc->{$this->action}();
+        if (is_array($view)) {
+            $env = $env + $view;
+        }
 
         // Allow the after methods to append end
         $after = $pc->after();
