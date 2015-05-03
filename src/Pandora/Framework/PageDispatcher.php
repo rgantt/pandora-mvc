@@ -17,7 +17,7 @@ class PageDispatcher implements Renderable {
     }
 
     public function render() {
-        $request = new Request();
+        $request = new HTTPRequest();
 
         $controller = ucfirst($this->controller)."Controller";
         $model = ucfirst($this->controller)."Facade";
